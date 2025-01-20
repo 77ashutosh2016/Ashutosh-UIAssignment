@@ -7,6 +7,15 @@ public class TransactionDTO {
     private Long customerId;
     private Double amount;
     private LocalDate transactionDate;
+    private Long transactionId;
+
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public Long getCustomerId() {
         return customerId;

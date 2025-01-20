@@ -1,5 +1,6 @@
 package com.example.assignment.rewards.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class CustomerTransaction {
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false) // Foreign key column
     private Customer customer;

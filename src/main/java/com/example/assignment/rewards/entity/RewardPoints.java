@@ -1,6 +1,7 @@
 package com.example.assignment.rewards.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,9 +14,9 @@ public class RewardPoints {
     private Integer rewardMonth;
     private Integer rewardyear;
     private Integer points;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id") // Maps the foreign key
-
     private Customer customer;
 
     public Integer getRewardMonth() {

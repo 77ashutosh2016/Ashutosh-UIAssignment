@@ -21,4 +21,9 @@ public class RewardController {
     public ResponseEntity<List<RewardPoints>> getRewards(@PathVariable Long customerId) {
         return ResponseEntity.ok(rewardService.getRewardsByCustomer(customerId));
     }
+
+    @GetMapping
+    public ResponseEntity<List<RewardPoints>> getAllRewards() {
+        return ResponseEntity.ok(rewardService.getAllRewards());
+    }
 }

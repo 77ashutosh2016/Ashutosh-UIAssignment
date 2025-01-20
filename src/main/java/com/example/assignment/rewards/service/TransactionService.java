@@ -36,4 +36,22 @@ public class TransactionService {
     public List<CustomerTransaction> getTransactionsByCustomer(Long customerId) {
         return transactionRepository.findByCustomerCustomerId(customerId);
     }
+
+    public void deleteTransactionsByCustomer(Long transactionId) {
+        transactionRepository.deleteById(transactionId);
+        //rewardService.deleteRewardsByCustomer(transactionId);
+    }
+
+    public CustomerTransaction editTransaction(TransactionDTO transactionDTO) {
+        CustomerTransaction transaction = new CustomerTransaction();
+        Customer customer=new Customer();
+        customer.setCustomerId(transactionDTO.getCustomerId());
+        transaction.setCustomer(customer);
+        transaction.setAmount(transactionDTO.getAmount());
+        transaction.setTransactionId(transactionDTO.getTransactionId());
+        transaction.setTransactionDate(transactionDTO.getTransactionDate());
+        CustomerTransaction updatedTransaction = transactionRepository.save(transaction);
+        rewardService.calculateAndSaveRewards(updatedTransaction);
+        return updatedTransaction;
+    }
 }

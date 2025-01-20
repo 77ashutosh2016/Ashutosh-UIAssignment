@@ -33,4 +33,13 @@ public class RewardService {
     public List<RewardPoints> getRewardsByCustomer(Long customerId) {
         return rewardRepository.findByCustomerCustomerId(customerId);
     }
+
+//    public void deleteRewardsByCustomer(Long customerId){
+//        rewardRepository.deleteById(customerId);
+//
+//    }
+
+    public List<RewardPoints> getAllRewards() {
+        return rewardRepository.findAll();
+    }
 }

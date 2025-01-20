@@ -1,5 +1,6 @@
 package com.example.assignment.rewards.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -19,15 +20,16 @@ public class Customer {
         private String name;
 
         private String email;
-
         @JsonIgnore
         private String password;
 
         private LocalDateTime createdAt = LocalDateTime.now();
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerTransaction> transactions;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RewardPoints> rewardPoints;
 
