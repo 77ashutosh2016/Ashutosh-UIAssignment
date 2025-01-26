@@ -27,14 +27,20 @@ public class SecurityConfig  {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for simplicity (not recommended for production)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll() // Allow H2 Console access
-                        .requestMatchers("/api/customers/register", "/api/customers/login").permitAll() // Allow registration & login
-                        .anyRequest().authenticated() // Secure all other endpoints
+                        // Allow access to OpenAPI and Swagger UI endpoints
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/actuator/**").permitAll()
+
+                        // Allow access to registration, login, and H2 Console
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/api/customers/register", "/api/customers/login","/swagger-ui.html").permitAll()
+
+                        // Secure all other endpoints
+                        .anyRequest().authenticated()
                 )
                 .formLogin(withDefaults()) // Enable form-based login with default configuration
                 .httpBasic(withDefaults()) // Enable HTTP Basic authentication
                 .headers(headers -> headers
-                        .frameOptions(frameOptionsConfigurer -> frameOptionsConfigurer.disable()) // Disable frame options
+                        .frameOptions(frameOptionsConfigurer -> frameOptionsConfigurer.disable()) // Disable frame options for H2 Console
                 );
 
         return http.build();

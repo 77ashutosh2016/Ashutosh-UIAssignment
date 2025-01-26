@@ -9,7 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RewardRepository extends JpaRepository<RewardPoints, Long> {
-
-
     List<RewardPoints> findByCustomerCustomerId(Long customerId);
 }
