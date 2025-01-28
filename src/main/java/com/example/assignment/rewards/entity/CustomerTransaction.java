@@ -15,14 +15,29 @@ public class CustomerTransaction {
 
     private Double amount;
 
+
+
     private LocalDate transactionDate;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Transient
+    private int rewardPoint;
+
+
 
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false) // Foreign key column
     private Customer customer;
+
+    public int getRewardPoint() {
+        return rewardPoint;
+    }
+
+    public void setRewardPoint(int rewardPoint) {
+        this.rewardPoint = rewardPoint;
+    }
 
     public Long getTransactionId() {
         return transactionId;
