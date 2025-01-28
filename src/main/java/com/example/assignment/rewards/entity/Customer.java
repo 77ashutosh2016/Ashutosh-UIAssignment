@@ -23,6 +23,11 @@ public class Customer {
         @JsonIgnore
         private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "customer_roles", joinColumns = @JoinColumn(name = "customer_id"))
+    @Column(name = "role")
+    private List<String> roles;
+
         private LocalDateTime createdAt = LocalDateTime.now();
 
     @JsonBackReference
@@ -32,6 +37,16 @@ public class Customer {
     @JsonBackReference
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RewardPoints> rewardPoints;
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles.stream()
+                .map(role -> role.startsWith("ROLE_") ? role : "ROLE_" + role.toUpperCase())
+                .toList();
+    }
 
     public List<RewardPoints> getRewardPoints() {
         return rewardPoints;

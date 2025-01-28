@@ -33,6 +33,7 @@ public class SecurityConfig  {
                         // Allow access to registration, login, and H2 Console
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/api/customers/register", "/api/customers/login","/swagger-ui.html").permitAll()
+                        .requestMatchers("/api/transactions/update").hasAuthority("ROLE_ADMIN")
 
                         // Secure all other endpoints
                         .anyRequest().authenticated()
@@ -46,10 +47,10 @@ public class SecurityConfig  {
         return http.build();
     }
 
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

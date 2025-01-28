@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -21,6 +23,7 @@ public class CustomerService {
         customer.setName(customerDTO.getName());
         customer.setEmail(customerDTO.getEmail());
         customer.setPassword(passwordEncoder.encode(customerDTO.getPassword())); // hash the password
+        customer.setRoles(Arrays.asList("USER"));
         return customerRepository.save(customer);
     }
 

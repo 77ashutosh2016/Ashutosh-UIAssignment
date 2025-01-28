@@ -24,12 +24,13 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.addTransaction(transactionDTO));
     }
 
-//    @PreAuthorize("hasRole('USER')")
+    //   @PreAuthorize("hasRole('USER')")
     @GetMapping("/{customerId}")
     public ResponseEntity<List<CustomerTransaction>> getTransactions(@PathVariable Long customerId) {
         return ResponseEntity.ok(transactionService.getTransactionsByCustomer(customerId));
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{transactionId}")
         public ResponseEntity<List<CustomerTransaction>>deleteTransactions(@PathVariable Long transactionId) {
         transactionService.deleteTransactionsByCustomer(transactionId);
@@ -37,6 +38,7 @@ public class TransactionController {
 
     }
 
+   // @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update")
     public ResponseEntity<CustomerTransaction> editTransaction(@RequestBody @Valid TransactionDTO transactionDTO) {
         return ResponseEntity.ok(transactionService.editTransaction(transactionDTO));

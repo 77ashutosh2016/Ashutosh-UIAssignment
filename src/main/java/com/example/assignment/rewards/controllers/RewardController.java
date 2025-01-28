@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.YearMonth;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/rewards")
@@ -23,7 +25,10 @@ public class RewardController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RewardPoints>> getAllRewards() {
+    public Map<Long, Map<YearMonth, Integer>> getMonthlyRewards() {
+        return rewardService.calculateMonthlyRewards();
+    /*public ResponseEntity<List<RewardPoints>> getAllRewards() {
         return ResponseEntity.ok(rewardService.getAllRewards());
+    }*/
     }
 }

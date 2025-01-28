@@ -28,8 +28,8 @@ public class TransactionService {
 
         CustomerTransaction savedTransaction = transactionRepository.save(transaction);
 
-        rewardService.calculateAndSaveRewards(savedTransaction);
-
+        int rewardPoint= rewardService.calculateAndSaveRewards(savedTransaction);
+        transaction.setRewardPoint(rewardPoint);
         return savedTransaction;
     }
 
@@ -42,7 +42,7 @@ public class TransactionService {
         //rewardService.deleteRewardsByCustomer(transactionId);
     }
 
-    public CustomerTransaction editTransaction(TransactionDTO transactionDTO) {
+    public CustomerTransaction edit_Transaction(TransactionDTO transactionDTO) {
         CustomerTransaction transaction = new CustomerTransaction();
         Customer customer=new Customer();
         customer.setCustomerId(transactionDTO.getCustomerId());
@@ -53,5 +53,21 @@ public class TransactionService {
         CustomerTransaction updatedTransaction = transactionRepository.save(transaction);
         rewardService.calculateAndSaveRewards(updatedTransaction);
         return updatedTransaction;
+    }
+    public CustomerTransaction editTransaction(TransactionDTO transactionDTO) {
+        CustomerTransaction transaction = new CustomerTransaction();
+        Customer customer=new Customer();
+        customer.setCustomerId(transactionDTO.getCustomerId());
+        transaction.setCustomer(customer);
+        transaction.setAmount(transactionDTO.getAmount());
+
+        transaction.setTransactionDate(transactionDTO.getTransactionDate());
+        transaction.setTransactionId(transactionDTO.getTransactionId());
+
+        CustomerTransaction savedTransaction = transactionRepository.save(transaction);
+
+        int rewardPoint= rewardService.calculateAndSaveRewards(savedTransaction);
+        transaction.setRewardPoint(rewardPoint);
+        return savedTransaction;
     }
 }
